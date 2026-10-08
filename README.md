@@ -1,42 +1,153 @@
-# Slim Framework 4 Skeleton Application
 
-[![Coverage Status](https://coveralls.io/repos/github/slimphp/Slim-Skeleton/badge.svg?branch=master)](https://coveralls.io/github/slimphp/Slim-Skeleton?branch=master)
+# 🎵 Musique API
 
-Use this skeleton application to quickly setup and start working on a new Slim Framework 4 application. This application uses the latest Slim 4 with Slim PSR-7 implementation and PHP-DI container implementation. It also uses the Monolog logger.
+API REST développée en PHP avec le framework Slim permettant de gérer et de consulter des données musicales.
 
-This skeleton application was built for Composer. This makes setting up a new Slim Framework application quick and easy.
+Le projet utilise une base de données MySQL et propose différents endpoints pour accéder aux albums, artistes, notes et classements.
 
-## Install the Application
+## 🛠️ Technologies utilisées
 
-Run this command from the directory in which you want to install your new Slim Framework application. You will require PHP 7.4 or newer.
+- PHP 8
+- Slim Framework
+- MySQL
+- Composer
+- PDO
+- JSON
+- Git / GitHub
+- Alwaysdata (hébergement)
 
-```bash
-composer create-project slim/slim-skeleton [my-app-name]
+## 📁 Structure du projet
+
+```text
+Musique_api/
+├── app/
+│   ├── dependencies.php
+│   ├── middleware.php
+│   ├── repositories.php
+│   ├── routes.php
+│   └── settings.php
+├── public/
+│   └── index.php
+├── src/
+│   ├── Application/
+│   ├── Domain/
+│   └── Entity/
+├── composer.json
+└── README.md
 ```
 
-Replace `[my-app-name]` with the desired directory name for your new application. You'll want to:
+## 🚀 Installation
 
-* Point your virtual host document root to your new application's `public/` directory.
-* Ensure `logs/` is web writable.
-
-To run the application in development, you can run these commands 
+### 1. Cloner le dépôt
 
 ```bash
-cd [my-app-name]
-composer start
+git clone URL_DU_DEPOT
+cd Musique_api
 ```
 
-Or you can use `docker-compose` to run the app with `docker`, so you can run these commands:
-```bash
-cd [my-app-name]
-docker-compose up -d
-```
-After that, open `http://localhost:8080` in your browser.
-
-Run this command in the application directory to run the test suite
+### 2. Installer les dépendances
 
 ```bash
-composer test
+composer install
 ```
 
-That's it! Now go build something cool.
+### 3. Configurer la base de données
+
+Configurer les paramètres de connexion MySQL selon l'environnement utilisé.
+
+La base de données doit contenir les tables nécessaires au fonctionnement de l'API.
+
+### 4. Démarrer le serveur
+
+```bash
+php -S localhost:8080 -t public
+```
+
+L'API est alors accessible à l'adresse :
+
+http://localhost:8080/api
+
+## 🌐 API en ligne
+
+https://arnaudddddd.alwaysdata.net/api/albums
+
+## 📡 Endpoints REST
+
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| GET | /api/albums | Liste des albums |
+| GET | /api/ratings | Liste des notes |
+| GET | /api/rankings/artists | Classement des artistes |
+| GET | /api/duel/albums/{firstId}/{secondId} | Comparaison de deux albums |
+
+### Exemples
+
+Récupérer les albums :
+
+```http
+GET /api/albums
+```
+
+Récupérer les notes :
+
+```http
+GET /api/ratings
+```
+
+Obtenir le classement des artistes :
+
+```http
+GET /api/rankings/artists?limit=10
+```
+
+Comparer deux albums :
+
+```http
+GET /api/duel/albums/1/2
+```
+
+## ⭐ Fonctionnalités spécifiques
+
+### 1. Classement des artistes
+
+L'API propose un classement des artistes selon leurs évaluations.
+
+Le paramètre `limit` permet de limiter le nombre de résultats retournés.
+
+Exemple :
+
+```http
+GET /api/rankings/artists?limit=5
+```
+
+### 2. Duel entre deux albums
+
+Cette fonctionnalité permet de comparer deux albums à partir de leurs identifiants.
+
+Les deux identifiants sont transmis directement dans l'URL.
+
+Exemple :
+
+```http
+GET /api/duel/albums/1/2
+```
+
+## 🏗️ Architecture
+
+Le projet utilise une architecture séparant :
+
+- Les routes HTTP
+- La logique applicative
+- Les repositories
+- Les entités
+- L'accès aux données MySQL
+
+Les repositories centralisent les requêtes vers la base de données.
+
+Les réponses de l'API sont transmises au format JSON.
+
+## 👨‍💻 Auteur
+
+**Arnaud Jancart**
+
+Projet développé dans le cadre du BTS CIEL, option Informatique et Réseaux.
